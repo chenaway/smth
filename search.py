@@ -12,16 +12,21 @@ fa = re.findall
 
 # ---------------
 
+
 def get_html(url):
     return g(url).content.decode('gbk').encode('utf8')
 
+
 def search(keyword):
     ''' search for keyword'''
-    url = 'http://www.newsmth.net/nForum/s/article?ajax&t1=%s&au=&b=Career_Upgrade' % keyword
+    pattern = 'http://www.newsmth.net/nForum/s/article?\
+ajax&t1=%s&au=&b=Career_Upgrade'
+    url = pattern % keyword
     html = get_html(url)
     return get_index_title(html)
 
 # ---------------
+
 
 def html_clean(html):
     ''' clean html tags and escaped chars '''
@@ -33,7 +38,8 @@ def html_clean(html):
 
 def get_index_title(html):
     # get links and titles
-    links = fa(u'<a href="/nForum/article/Career_Upgrade/(\d+)">([^<]*)</a>', html)
+    pattern = u'<a href="/nForum/article/Career_Upgrade/(\d+)">([^<]*)</a>'
+    links = fa(pattern, html)
     return links
 
 

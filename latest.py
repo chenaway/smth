@@ -33,7 +33,7 @@ def local_page(page):
 def get_index_page(page):
     ''' get list of topics '''
 
-    # get html 
+    # get html
     url = 'http://www.newsmth.net/nForum/board/Career_Upgrade?ajax&p=%s' % page
     html = g(url).content.decode('gbk').encode('utf8')
     open('%s.html' % page, 'w+').write(html)
@@ -43,9 +43,11 @@ def get_index_page(page):
         html = remove_top(html)
     return html
 
+
 def get_index_title(html):
     # get links and titles
-    links = fa(u'<a href="/nForum/article/Career_Upgrade/(\d+)">([^<]*)</a>', html)
+    pattern = u'<a href="/nForum/article/Career_Upgrade/(\d+)">([^<]*)</a>'
+    links = fa(pattern, html)
     return links
 
 
